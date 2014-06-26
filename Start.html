@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Start</title>
+
+<style type="text/css">
+html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%; color: #FFFFFF;
+    font-family: Open Sans; font-size: 12pt;
+}
+#perspective {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent;
+}
+#preset {
+    position: absolute; top: 0; left: 0;
+    width: auto; height: auto;
+    background: #000; color: #FFFFFF;
+    display: none; z-index: 1000;
+}
+
+
+/* Links */
+a:link {
+    color: #FFFFFF; text-decoration: none; opacity: 0.7;
+    min-width: 150px; margin-left: 0px;
+    transition: 0.1s ease-in; display: inline-block;
+    cursor: default;
+}
+a:hover {
+    color: #FFFFFF; text-decoration: none; opacity: 1.0;
+    min-width: 150px; margin-left: -10px;
+    transition: 0.1s ease-out;
+}
+*:focus                  { outline: none; }
+
+
+/* Search Boxes */
+input[type="text"] {
+    width: 100px; border: 0;
+    opacity: 0.7;
+    margin: 3px; padding: 1px 1px; transition: 0.2s ease;
+    cursor: default;
+}
+input[type="text"]:hover {width: 100px; opacity: 1.0; transition: 0.2s ease; cursor: text;}
+input[type="text"]:focus {width: 100px; opacity: 1.0; transition: 0.2s ease; cursor: text;}
+
+
+/* Pages */
+.container {
+    position: fixed; top: 30%; left: 50%;
+    width: auto; height: auto;
+    margin-left: 0; margin-top: -20px;
+    overflow: visible; white-space: nowrap;
+    transition: 0.6s ease;
+}
+.container label {
+    border-bottom: 1px solid #FFFFFF;
+    display: block; font-weight: bold;
+    text-align: center;
+}
+#box-3 {margin-left: -125px; opacity: 1.0; autofocus}
+    #search td:nth-child(1)     {padding-right: 5px;}
+    #search label               {border: 0; font-weight: normal; opacity: 0.7;}
+
+
+/* Switcher */
+#switch {
+    position: fixed; bottom: 5%; left: 0;
+    width: 100%; height: 16px;
+    margin-left: 0px; cursor: default;
+    opacity: 0.5; transition: 0.2s ease-in;
+    text-align: center;
+}
+.switch {
+    display: inline-block; width: 10px; height: 10px;
+    border: 1px solid transparent; border-radius: 10px;
+    background: transparent;
+    transition: 0.2s ease-in;
+    cursor: default;
+}
+}
+</style>
+
+
+<script type="text/javascript" language="javascript">;
+var $=function(id) {return document.getElementById(id);};
+var presets=[ // curve x2(x2), margins x2(x2), marginT, marginC, translateZ x2(x2), perspective, rotation x3(x5)
+    [0,0,0,0, -350,-700,350,700, -20, -75, 0,0,0,0, 800, 0,20,0, 0,45,0, 0,-20,0, 0,-45,0, 0,0,0],                  // Preset 1
+    [0,0,0,0, -350,-700,350,700, -20, -75, 0,0,0,0, 800, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0],                  // Preset 2
+    [0,0,0,0, -350,-700,350,700, -20, -75, 0,0,0,0, 800, 0,0,-90, 0,0,-179, 0,0,90, 0,0,179, 0,0,0],                // Preset 3
+    [0,0,0,0, -350,-700,350,700, -20, -75, 0,0,0,0, 800, 0,179,0, 0,0,0, 0,179,0, 0,0,0, 0,0,0],                    // Preset 4
+    [0,0,0,0, -330,-650,330,650, -20, -75, 30,160,30,160, 800, 0,20,0, 0,40,0, 0,-20,0, 0,-40,0, 0,0,0],            // Preset 5
+    [0,0,0,0, -350,-700,350,700, -20, -75, 0,0,0,0, 800, 0,45,45, 0,135,135, 0,-45,-45, 0,-135,-135, 0,0,0],        // Preset 6
+];
+var preset          = 2;
+var pg              = 3;
+var searchBox       = 3;
+var dim             = 20;
+var dimColor        = "#7C7C7C";
+var background      = "#242424";
+var color           = "#FFFFFF";
+var autoFocus       = "search-1"    // "" = none | default: "search-1"
+
+var invertScroll    = false;
+var useScrollLock   = false;
+
+var curve=[ // Vertical movement (marginTop)
+    [ 0, 0],                        // Left side (step1,step2)
+    [ 0, 0]                         // Right side (step1,step2)
+];
+var margins=[ // Horizontal movment (MarginLeft)
+    [-350,-700],                    // Left side (step1,step2)
+    [ 350, 700]                     // Right side (step1,step2)
+];
+var marginT = -20;                  // Default marginTop
+var marginC = -75;                  // Default marginLeft (center)
+
+var translateZ=[ // Depth movement (z-index)
+    [ 0, 0],                        // Left side (step1,step2)
+    [ 0, 0]                         // Right side (step1,step2)
+];
+var perspective=800;
+
+var rotation=[ // [ X, Y, Z] Degree (angle)
+    [ 0, 0, 0], [ 0, 0, 0],         // Left side (step1,step2)
+    [ 0, 0, 0], [ 0, 0, 0],         // Right side (step1,step2)
+    [ 0, 0, 0]                      // Center/Default
+];
+
+var boxSetup=[
+    ["Technology",						"#FFFFFF"],	// box-1
+    ["4chan",							"#FFFFFF"],	// box-2
+    ["Search",							"#FFFFFF"],	// box-3
+    ["Entertainment",					"#FFFFFF"],	// box-4
+    ["Education",						"#FFFFFF"],	// box-5
+];
+
+var links=[
+    // Technology						box-1
+    ["GitHub",							"https://github.com/"],
+    ["Stack Exchange",					"https://stackexchange.com/"],
+    ["Arch Wiki",						"https://wiki.archlinux.org/"],
+    ["/g/ Wiki",						"https://wiki.installgentoo.com/"],
+    ["Logical Increments",				"http://www.logicalincrements.com/"],
+    ["Pastebin",						"http://pastebin.com/"],
+    ["Imgur",							"https://imgur.com/"],
+    ["---",                             "---"],
+
+    // 4chan							box-2
+    ["Technology",						"https://boards.4chan.org/g/catalog"],
+    ["Video Games",						"https://boards.4chan.org/v/catalog"],
+    ["Retro Games",						"https://boards.4chan.org/vr/catalog"],
+    ["Music",							"https://boards.4chan.org/mu/catalog"],
+    ["Television & Film",				"https://boards.4chan.org/tv/catalog"],
+    ["Literature",						"https://boards.4chan.org/lit/catalog"],
+    ["Fitness",							"https://boards.4chan.org/fit/catalog"],
+    ["Fashion",							"https://boards.4chan.org/fa/catalog"],
+    ["---",                             "---"],
+
+    // Search							box-3
+    ["Google",                          "https://www.google.com/#q="],
+    ["DuckDuckGo",                      "https://duckduckgo.com/?q="],
+    ["YouTube",                         "https://www.youtube.com/results?search_query="],
+    ["Wikipedia",                       "http://en.wikipedia.org/w/index.php?search="],
+    ["Wiktionary",                      "https://en.wiktionary.org/wiki/Special:Search?search="],
+    ["IMDb",                            "http://www.imdb.com/find?q="],
+    ["Rate Your Music",                 "http://rateyourmusic.com/search?searchtype=a&searchterm="],
+    ["---",                             "---"],
+
+    // Entertainment					box-4
+    ["Google Play Music",				"https://play.google.com/music/listen#/now"],
+    ["Rate Your Music",					"https://rateyourmusic.com/"],
+    ["Last.fm",							"http://www.last.fm/"],
+    ["Bandcamp",						"https://bandcamp.com/"],
+    ["SoundCloud",						"https://soundcloud.com/"],
+    ["GOG",								"http://www.gog.com/"],
+    ["Steam",							"http://store.steampowered.com/"],
+    ["Twitch",							"http://www.twitch.tv/"],
+    ["Netflix",							"http://www.netflix.com/WiHome"],
+    ["YouTube",							"https://www.youtube.com/"],
+    ["---",                             "---"],
+
+    // Education						box-5
+    ["Google Play Books",				"https://play.google.com/books"],
+    ["Codecademy",						"http://www.codecademy.com/"],
+    ["Duolingo",						"https://www.duolingo.com/"],
+    ["Coursera",						"https://www.coursera.org/"],
+    ["Wikipedia",						"https://en.wikipedia.org/wiki/Main_Page"],
+    ["Wiktionary",						"https://en.wiktionary.org/wiki/Wiktionary:Main_Page"],
+    ["Home Access Center",				"https://esp-has-1.psd202.org/homeaccess/"],
+    ["Google Drive",					"https://drive.google.com/"],
+    ["Edmodo",							"https://www.edmodo.com/"],
+    ["Turnitin",						"http://turnitin.com/"],
+];
+
+
+function init() {
+    var body=document.getElementsByTagName('body')[0];
+    body.style.background=background;
+    body.style.color=color;
+
+    if(preset>0) { // load preset
+        var p=parseInt(preset-1);
+
+        curve[0][0]=presets[p][0];               curve[0][1]=presets[p][1];
+        curve[1][0]=presets[p][2];               curve[1][1]=presets[p][3];
+        margins[0][0]=presets[p][4];             margins[0][1]=presets[p][5];
+        margins[1][0]=presets[p][6];             margins[1][1]=presets[p][7];
+        translateZ[0][0]=presets[p][10];         translateZ[0][1]=presets[p][11];
+        translateZ[1][0]=presets[p][12];         translateZ[1][1]=presets[p][13];
+        marginT=presets[p][8]; marginC=presets[p][9]; perspective=presets[p][14];
+
+        var a=0,b=0;
+        for(var i=15;i<=29;i++) {
+            rotation[a][b]=presets[p][i];
+            b++; if(b>=3) { b=0; a++; }
+        }
+    }
+
+    $('perspective').style.perspective=perspective+"px";
+    
+    if(body.addEventListener) {
+        body.addEventListener("mousewheel", MouseWheelHandler, false);
+        body.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+    } else {
+        body.attachEvent("onmousewheel", MouseWheelHandler);
+    }
+
+    clear();
+    build();
+
+    var linkTags=document.getElementsByTagName('a');
+    for(var a=0;a<linkTags.length;a++) {
+        linkTags[a].style.color=color;
+    }
+    var inputTags=document.getElementsByTagName('input');
+    for(var i=0;i<inputTags.length;i++) {
+        inputTags[i].style.color=background;
+    }
+    var switchClass=document.getElementsByClassName('switch');
+    for(var c=0;c<switchClass.length;c++) {
+        switchClass[c].style.borderColor=color;
+    }
+
+    cleanup();
+
+    if(autoFocus.length>0) { $(autoFocus).focus(); }
+
+    
+}
+
+function clear() {
+    $('boxes').innerHTML="";
+    $('switch').innerHTML="";
+
+    for(var i=0;i<=boxSetup.length-1;i++) {
+        $('boxes').innerHTML+="<div id='box-"+(i+1)+"' class='container'></div>\n";
+        $('switch').innerHTML+="<div id='pg-"+(i+1)+"' class='switch' onclick='javascript:go("+(i+1)+");'></div> \n";
+
+        if((i+1)==searchBox) {
+            $('box-'+searchBox).innerHTML="<label style='color: "+boxSetup[(searchBox-1)][1]+"; \
+"+                                         "border-color: "+boxSetup[i][1]+";'>"+boxSetup[i][0]+"</label></br />\
+"+                                          "<table id='search' border='0' cellspacing='0' cellpadding='0'>\
+"+                                           "<tr><td></td><td></td></tr></table>\n";
+        } else {
+            $('box-'+(i+1)).innerHTML="<label style='color: "+boxSetup[i][1]+"; \
+"+                                     "border-color: "+boxSetup[i][1]+";'>"+boxSetup[i][0]+"</label></br />\n";
+        }
+    }
+
+
+}
+
+function build() {
+   var skip=false,c=1,r=1;
+
+    for(var i=0;i<=links.length-1;i++) {
+        if(links[i][0]=="---"&&links[i][1]=="---") { skip=true; c++; }
+        if(!skip) {
+            if(c==searchBox) {
+                // Search engines
+                var table=$('search');
+                var row=table.insertRow(r);
+                var cell1=row.insertCell(0);
+                var cell2=row.insertCell(1);
+
+                cell1.innerHTML="<label for='search-"+r+"'>"+links[i][0]+"</label>";
+                cell2.innerHTML="<input id='search-"+r+"' type='text' value='' \
+"+                               "onfocus='javascript:activeInput=true;if(searchBox!=pg) go(searchBox);' onblur='javascript:activeInput=false;' \
+"+                                "onkeypress='javascript:handleKeyPress(event,\""+links[i][1]+"\",this.value);' />";
+                r++;
+            } else {
+                // Links
+                $('box-'+c).innerHTML+="<a href='"+links[i][1]+"' target='_self'>"+links[i][0]+"</a><br />";
+            }
+        }
+        skip=false;
+    } 
+}
+
+function cleanup() {
+    var input=document.getElementsByTagName('input');
+    if(pg==searchBox) {
+        for(var i=0;i<=input.length-1;i++) {
+            input[i].style.background=color;
+        }
+    } else {
+        for(var i=0;i<=input.length-1;i++) {
+            input[i].style.background=dimColor;
+        }
+    }
+
+    for(var i=1;i<=boxSetup.length;i++) {
+        $('pg-'+i).style.background="transparent";
+    }
+    $('pg-'+pg).style.background=color;
+
+    if(pg>=2) { // Left
+        $('box-'+(pg-1)).style.cssText="margin-left: "+(margins[0][0]+marginC)+"px; \
+"+                                      "margin-top: "+(curve[0][0]+marginT)+"px; \
+"+                                       "opacity: "+(parseFloat(dim/100))+"; \
+"+                                        "transform: perspective("+perspective+"px) translateZ("+translateZ[0][0]+"px) \
+"+                                         "rotateZ("+rotation[0][2]+"deg) rotateY("+rotation[0][1]+"deg) rotateX("+rotation[0][0]+"deg); \
+"+                                          "-webkit-transform: perspective("+perspective+"px) translateZ("+translateZ[0][0]+"px) \
+"+                                           "rotateZ("+rotation[0][2]+"deg) rotateY("+rotation[0][1]+"deg) rotateX("+rotation[0][0]+"deg);";
+
+        for(var i=1;i<=(pg-2);i++) {
+            $('box-'+i).style.cssText="margin-left: "+(margins[0][1]+marginC)+"px; \
+"+                                     "margin-top: "+(curve[0][1]+marginT)+"px; opacity: 0; \
+"+                                      "transform: perspective("+perspective+"px) translateZ("+translateZ[0][1]+"px) \
+"+                                       "rotateZ("+rotation[1][2]+"deg) rotateY("+rotation[1][1]+"deg) rotateX("+rotation[1][0]+"deg); \
+"+                                        "-webkit-transform: perspective("+perspective+"px) translateZ("+translateZ[0][1]+"px) \
+"+                                         "rotateZ("+rotation[1][2]+"deg) rotateY("+rotation[1][1]+"deg) rotateX("+rotation[1][0]+"deg);";
+        }
+    }
+
+    if(pg<=boxSetup.length-1) { // Right
+        $('box-'+(pg+1)).style.cssText="margin-left: "+(margins[1][0]+marginC)+"px; \
+"+                                      "margin-top: "+(curve[1][0]+marginT)+"px; \
+"+                                       "opacity: "+(parseFloat(dim/100))+"; \
+"+                                        "transform: perspective("+perspective+"px) translateZ("+translateZ[1][0]+"px) \
+"+                                         "rotateZ("+rotation[2][2]+"deg) rotateY("+rotation[2][1]+"deg) rotateX("+rotation[2][0]+"deg); \
+"+                                          "-webkit-transform: perspective("+perspective+"px) translateZ("+translateZ[1][0]+"px) \
+"+                                           "rotateZ("+rotation[2][2]+"deg) rotateY("+rotation[2][1]+"deg) rotateX("+rotation[2][0]+"deg);";
+
+        for(var i=(pg+2);i<=boxSetup.length;i++) {
+            $('box-'+i).style.cssText="margin-left: "+(margins[1][1]+marginC)+"px; \
+"+                                     "margin-top: "+(curve[1][1]+marginT)+"px; opacity: 0; \
+"+                                      "transform: perspective("+perspective+"px) translateZ("+translateZ[1][1]+"px) \
+"+                                       "rotateZ("+rotation[3][2]+"deg) rotateY("+rotation[3][1]+"deg) rotateX("+rotation[3][0]+"deg); \
+"+                                        "-webkit-transform: perspective("+perspective+"px) translateZ("+translateZ[1][1]+"px) \
+"+                                         "rotateZ("+rotation[3][2]+"deg) rotateY("+rotation[3][1]+"deg) rotateX("+rotation[3][0]+"deg);";
+        }
+    }
+}
+
+function next() {
+    pg++; $('box-'+pg).style.cssText="margin-left: "+marginC+"px; opacity: 1.0; \
+"+                                    "transform: perspective("+perspective+"px) translateZ(0px) \
+"+                                     "rotateZ("+rotation[4][2]+"deg) rotateY("+rotation[4][1]+"deg) rotateX("+rotation[4][0]+"deg); \
+"+                                      "-webkit-transform: perspective("+perspective+"px) translateZ(0px) \
+"+                                       "rotateZ("+rotation[4][2]+"deg) rotateY("+rotation[4][1]+"deg) rotateX("+rotation[4][0]+"deg);";
+
+    cleanup();
+}
+function prev() {
+    pg--; $('box-'+pg).style.cssText="margin-left: "+marginC+"px; opacity: 1.0; \
+"+                                    "transform: perspective("+perspective+"px) translateZ(0px) \
+"+                                     "rotateZ("+rotation[4][2]+"deg) rotateY("+rotation[4][1]+"deg) rotateX("+rotation[4][0]+"deg); \
+"+                                      "-webkit-transform: perspective("+perspective+"px) translateZ(0px) \
+"+                                       "rotateZ("+rotation[4][2]+"deg) rotateY("+rotation[4][1]+"deg) rotateX("+rotation[4][0]+"deg);";
+
+    cleanup();
+}
+
+function handleKeyPress(e,url,q) {
+    var key=e.keyCode || e.which
+    if(key==13) { // Search
+        window.location=url+q;
+    }
+}
+
+var activeInput=false;
+document.onkeydown=function(e) { // key navigation
+    if(!activeInput&&enableKeys) {
+        var key=e.keyCode || e.which
+        if(key>=49&&(key<=57&&key<=(48+boxSetup.length)))  { go(key-48); }                                                          // key 1-9
+        if(key>=97&&(key<=105&&key<=(96+boxSetup.length))) { go(key-96); }                                                          // num key 1-9
+        if((key==37||key==65)&&pg>1)                       { prev(); } else if((key==37||key==65)&&pg==1) { go(boxSetup.length); }  // key left and A
+        if((key==39||key==68)&&pg<boxSetup.length)         { next(); } else if((key==39||key==68)&&pg==boxSetup.length) { go(1); }  // key right and D
+    }
+}
+
+var scrollLock=false,sl_timer;
+function MouseWheelHandler(e) { // Scroll navigation
+    var e = window.event || e;
+    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+    if(!scrollLock||!useScrollLock) {
+        if(!invertScroll) {
+            if(delta==-1&&pg<boxSetup.length)	{next();}
+            if(delta==1&&pg>1)					{prev();}
+        } else {
+            if(delta==1&&pg<boxSetup.length)	{next();}
+            if(delta==-1&&pg>1)					{prev();}
+        }
+
+        if(useScrollLock) {
+            scrollLock=true;              clearTimeout(sl_timer);
+            sl_timer=setTimeout("scrollLock=false",scrollLockMS);
+        }
+    }
+    return false;
+}
+
+var touchHold=false,cX;
+document.ontouchstart=function(e) { touchHold=true; cX=e.touches[0].clientX; }
+document.ontouchmove= function(e) { // Touch navigation
+    if(touchHold) {
+        if((e.touches[0].clientX>=(cX+1))&&pg>1)				{prev();}
+        if((e.touches[0].clientX<=(cX-1))&&pg<boxSetup.length)	{next();}
+        touchHold=false;
+    }
+}
+</script>
+</head>
+
+<body onload="javascript:init();">
+<div id="perspective">
+    <div id="boxes"></div>
+</div>
+<div id="switch"></div>
+<div id="preset"></div>
+
+</body>
+</html>
