@@ -1,5 +1,4 @@
-Minimal-Home-Dark
+Start
 =================
-
-A home/new tab page that fits in with the rest of my styles and themes <br>
-[Live Demo](https://cdn.rawgit.com/alecdtatum/Minimal-Start-Dark/master/Start.html)
+A minimal, dark start page to get you wherever you need to go on the internet. <br>
+[Live Demo](https://alecdtatum.github.io/Start/)
