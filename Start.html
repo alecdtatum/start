@@ -3,19 +3,6 @@
 	<link rel="stylesheet" type="text/css" href="Style.css">
 	<title>Start</title>
 </head>
-<script>
-if (e.keyCode == 38) { // up
-    var selected = $(".selected");
-    $(".services li").removeClass("selected");
-
-    // if there is no element before the selected one, we select the last one
-    if (selected.prev().length == 0) {
-        selected.siblings().last().addClass("selected");
-    } else { // otherwise we just select the next one
-        selected.prev().addClass("selected");
-    }
-}
-</script>
 <body>
 <div id="boxes">
 	<div class="box"><h4>Technology</h4>
