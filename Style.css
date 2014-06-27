@@ -1,0 +1,99 @@
+/* Body */
+body {
+	background: #242424;
+	color: #FFFFFF;
+	font-family: "Open Sans";
+	font-size: 12pt;
+}
+
+/* Links */
+ul {
+	list-style-type: none;
+}
+a {
+	display: inline-block;
+	padding: 2px 2px;
+	margin-left: -30px;
+	color: #FFFFFF;
+	text-decoration: none;
+	cursor: default;
+	transition: 0.15s ease;
+}
+a:hover {
+	margin-left: -40px;
+	color: #A8A8A8;
+}
+
+/* Containers */
+#boxes {
+	margin-top: 15%;
+	width: 98%;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+.box {
+	float: left;
+	position: relative;
+	width: 18%;
+	margin-left: 1%;
+	margin-right: 1%;
+	opacity: 0.5;
+	transition: 0.2s ease-in;
+}
+.box:hover,
+.sbox:hover {
+	opacity: 1.0;
+	transition: 0.2s ease-out;
+}
+.box h4,
+.sbox h4 {
+	margin: 0 0 0 0;
+	text-align: center;
+	font-size: 12pt;
+	border-bottom: 1px #FFFFFF solid;
+}
+
+/* Search Boxes */
+.sbox {
+	float: left;
+	position: relative;
+	width: 18%;
+	margin-left: 1%;
+	margin-right: 1%;
+	opacity: 0.9;
+	transition: 0.2s ease-in;
+}
+input[type="text"] {
+	padding: 0 0 0 0;
+    width: 120px;
+    height: 20px;
+    border: 0;
+    opacity: 0.7;
+    transition: 0.2s ease;
+    cursor: default;
+}
+input[type="text"]:hover {
+	width: 150px;
+	opacity: 1.0;
+	transition: 0.2s ease;
+}
+input[type="text"]:focus {
+	width: 150px;
+	opacity: 1.0;
+	transition: 0.2s ease;
+}
+#Search td:nth-child(1) {
+	display: block;
+	width: 150px;
+	text-align: center;
+	opacity: 0.8;
+}
+#search {
+	width: 98%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 20px;
+}
+td {
+	float: left;
+}
