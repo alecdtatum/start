@@ -43,7 +43,7 @@ a:hover {
 .box:hover,
 .sbox:hover {
 	opacity: 1.0;
-	transition: 0.2s ease-out;
+	transition: 0.5s ease-out;
 }
 .box h4,
 .sbox h4 {
@@ -76,11 +76,13 @@ input[type="text"]:hover {
 	width: 90%;
 	opacity: 1.0;
 	transition: 0.2s ease;
+	box-shadow: 0 0 4px #FFFFFF;
 }
 input[type="text"]:focus {
 	width: 90%;
 	opacity: 1.0;
-	transition: 0.2s ease;
+	transition: 0.4s ease;
+	box-shadow: 0 0 8px #FFFFFF;
 }
 #Search td:nth-child(1) {
 	display: block;
