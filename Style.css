@@ -65,31 +65,31 @@ a:hover {
 }
 input[type="text"] {
 	padding: 0 0 0 0;
-    width: 120px;
-    height: 20px;
-    border: 0;
-    opacity: 0.7;
-    transition: 0.2s ease;
-    cursor: default;
+	width: 75%;
+	height: 20px;
+	border: 0;
+	opacity: 0.7;
+	transition: 0.2s ease;
+	cursor: default;
 }
 input[type="text"]:hover {
-	width: 150px;
+	width: 90%;
 	opacity: 1.0;
 	transition: 0.2s ease;
 }
 input[type="text"]:focus {
-	width: 150px;
+	width: 90%;
 	opacity: 1.0;
 	transition: 0.2s ease;
 }
 #Search td:nth-child(1) {
 	display: block;
-	width: 150px;
+	width: 40%;
 	text-align: center;
 	opacity: 0.8;
 }
 #search {
-	width: 98%;
+	width: 100%;
 	margin-left: 1%;
 	margin-right: 1%;
 	margin-top: 20px;
