@@ -1,12 +1,12 @@
 /* Body */
 body {
 	background-image: url("Background");
-	font-family: "Open Sans";
-	font-size: 13pt;
+	font-family: 'Roboto Light', sans-serif;
+	font-size: 14pt;
 	color: #FFFFFF;
 }
 h1 {
-	font-family: "Roboto";
+	font-family: 'Lobster', sans-serif;
 	font-size: 48pt;
 	text-align: center;
 }
@@ -14,12 +14,13 @@ h1 {
 /* Links */
 ul {
 	list-style-type: none;
+	padding-left: 0;
 }
 li {
-	padding: 0 0 0 8px;
+	padding: 0 0 0 16px;
 }
 li:hover {
-	background-color: #FFFFFF;
+	background-color: #EBEBEB;
 	box-shadow: 0 0 8px #FFFFFF;
 	border-radius: 20px;
 }
@@ -58,7 +59,7 @@ a:hover {
 .sbox h4 {
 	margin: 0 0 0 0;
 	text-align: center;
-	font-family: Roboto Condensed;
+	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 19pt;
 	border-bottom: 1px #FFFFFF solid;
 }
@@ -83,13 +84,13 @@ tr, td {
 #Search td:nth-child(1) {
 	float: left;
 	margin-top: -2px;
-	width: 50%;
+	width: 35%;
 	text-align: center;
 	opacity: 0.8;
 }
 #Search td:nth-child(2) {
 	float: right;
-	width: 45%;
+	width: 60%;
 }
 input[type="text"] {
 	padding: 0 0 0 8px;
