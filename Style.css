@@ -1,29 +1,35 @@
 /* Body */
 body {
-	background-image: url("Background");
+	background-image: url("Background.png");
 	font-family: 'Roboto Light', sans-serif;
 	font-size: 14pt;
 	color: #FFFFFF;
 }
+
 h1 {
 	font-family: 'Lobster', sans-serif;
 	font-size: 48pt;
 	text-align: center;
 }
 
+
+
 /* Links */
 ul {
 	list-style-type: none;
 	padding-left: 0;
 }
+
 li {
 	padding: 0 0 0 16px;
 }
+
 li:hover {
 	background-color: #EBEBEB;
 	box-shadow: 0 0 8px #FFFFFF;
 	border-radius: 20px;
 }
+
 a {
 	display: block;
 	width: 100%;
@@ -31,9 +37,12 @@ a {
 	color: #FFFFFF;
 	cursor: default;
 }
+
 a:hover {
 	color: #000000;
 }
+
+
 
 /* Containers */
 #boxes {
@@ -41,6 +50,7 @@ a:hover {
 	margin-left: 1%;
 	margin-right: 1%;
 }
+
 .box {
 	float: left;
 	position: relative;
@@ -50,11 +60,13 @@ a:hover {
 	opacity: 0.4;
 	transition: 0.3s ease;
 }
+
 .box:hover,
 .sbox:hover {
 	opacity: 1.0;
 	transition: 0.3s ease;
 }
+
 .box h4,
 .sbox h4 {
 	margin: 0 0 0 0;
@@ -63,6 +75,8 @@ a:hover {
 	font-size: 19pt;
 	border-bottom: 1px #FFFFFF solid;
 }
+
+
 
 /* Search Boxes */
 .sbox {
@@ -73,14 +87,25 @@ a:hover {
 	opacity: 0.9;
 	transition: 0.2s ease;
 }
+
 #search {
 	width: 100%;
 	margin-top: 20px;
 }
+
 tr, td {
 	height: 100%;
-	padding: 0 0 0 0;
+	width: auto;
+	padding: 0 15px 0 15px;
 }
+
+td:hover a {
+	background-color: #EBEBEB;
+	box-shadow: 0 0 4px #FFFFFF;
+	color: #000000;
+	transition: 0.3s ease;
+}
+
 #Search td:nth-child(1) {
 	float: left;
 	margin-top: -2px;
@@ -88,10 +113,12 @@ tr, td {
 	text-align: center;
 	opacity: 0.8;
 }
+
 #Search td:nth-child(2) {
 	float: right;
 	width: 60%;
 }
+
 input[type="text"] {
 	padding: 0 0 0 8px;
 	width: 85%;
@@ -101,13 +128,20 @@ input[type="text"] {
 	opacity: 0.8;
 	transition: 0.2s ease;
 }
+
 input[type="text"]:hover {
 	width: 100%;
 	opacity: 1.0;
 	box-shadow: 0 0 4px #FFFFFF;
 }
+
 input[type="text"]:focus {
 	width: 100%;
 	opacity: 1.0;
 	box-shadow: 0 0 8px #FFFFFF;
+}
+
+form {
+	margin-bottom: 7px;
+	margin-top: 7px;
 }
