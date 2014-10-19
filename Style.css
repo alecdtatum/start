@@ -95,7 +95,7 @@ td:hover a {
 	background: #EEEEEE;
 	box-shadow: 0 0 4px #FFFFFF;
 	color: #000000;
-	transition: background 0.3s linear, box-shadow 0.3s linear, color 0.3s linear 0.1s;
+	transition: 0.3s linear;
 	}
 td:nth-child(1) {
 	float: left;
