@@ -3,10 +3,18 @@
 <head>
 	<link href='http://fonts.googleapis.com/css?family=Lobster|Roboto|Roboto+Condensed' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="Style.css">
+
 	<title>Start</title>
+
+	<script>
+	window.addEventListener('preload', function load() {
+	window.removeEventListener('preload', load, false);
+	document.body.classList.remove('preload');
+	}, false);
+</script>
 </head>
 
-<body>
+<body class="preload">
 	<h1>Welcome to the Web.</h1>
 <div id="boxes">
 
