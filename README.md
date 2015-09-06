@@ -1,7 +1,7 @@
 Start
 =================
 ![Alt text](scrot.png "Screenshot")
-[Demo](https://tavidatum.github.io/start/)
+[Demo](https://alecdtatum.github.io/start/)
 
 Fonts
 =================
